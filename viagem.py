@@ -21,7 +21,7 @@ def carregar_dados():
 def salvar_dados(dados):
     arquivo = open("agencia.txt", "w", encoding="utf-8")
     
-    for servidor in dados:
+    for servidor in dados.values():
         arquivo.write(f"{servidor.linha_armazenamento()}\n")
         
     arquivo.close()
@@ -47,19 +47,21 @@ def cadastrar_servidor(dados):
     cpf = input("Digite o CPF (somente números): ").strip()
     nome = input("Digite o nome: ").strip()
     tel = input("Digite o telefone: ").strip()
-    
+    #Luana adiciona as viagens <3(alice mandou)
+
     if nome == "" or tel == "" or cpf == "":
         print("Todos os dados são obrigatórios. Tente novamente")
         return
     
-    dados[cpf] = {
-        "nome": nome,
-        "telefone": tel
-        }
+    if validar_cpf(cpf, dados):
+        dados[cpf] = Servidor(cpf, nome, tel)
 
-    return "Servidor cadastrado com sucesso!"
+        return "Servidor cadastrado com sucesso!"
+    else:
+        return "O Servidor já existe"
     
-
+def validar_cpf(cpf, dados):
+    return cpf not in dados
     
 
     
@@ -68,7 +70,7 @@ op = menu()
 
 dados = carregar_dados()
 
-while op != 6:
+while op != "6":
     match op:
         case "1":
             print(cadastrar_servidor(dados))
@@ -80,7 +82,7 @@ while op != 6:
             print("Buscar")
         case "5":
             print("Listar")
-    
+
     op = menu()
     
 salvar_dados(dados)
