@@ -8,4 +8,4 @@ class Servidor:
         return f'{self.cpf}: {self.nome}, {self.tel}'
     
     def linha_armazenamento (self):
-        return f'{self.cpf} : {self.nome} : {self.tel}'
+        return f'S : {self.cpf} : {self.nome} : {self.tel}'

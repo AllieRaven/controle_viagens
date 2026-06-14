@@ -10,4 +10,4 @@ class Viagem:
         return f'{self.cpf} : {self.destino} : {self.inicio} : {self.fim} : {self.valor}'
 
     def linha_armazenamento(self):
-        return f'{self.cpf} : {self.destino} : {self.inicio} : {self.fim} : {self.valor}'
+        return f'V : {self.cpf} : {self.destino} : {self.inicio} : {self.fim} : {self.valor}'
