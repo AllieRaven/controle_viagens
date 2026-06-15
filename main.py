@@ -301,7 +301,7 @@ def listar_viagens():
 
 
 def buscar_viagens_cpf():
-    print(Panel((":bust_in_silhouette: Buscar Viagens por Servidos: "), expand=False))
+    print(Panel((":bust_in_silhouette: Buscar Viagens por Servidores: "), expand=False))
     print()
     cpf = Prompt.ask("[bold]:page_facing_up: Digite o cpf(apenas números): [/]").strip()
 
