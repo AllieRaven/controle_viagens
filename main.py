@@ -243,7 +243,8 @@ def remover_viagem(dados):
             viagem.destino,
             viagem.inicio,
             viagem.fim)
-        print(tabela)
+
+    print(tabela)
 
     while True:
         try:
