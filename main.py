@@ -66,7 +66,7 @@ def salvar_dados(dados):
 
 def menu():
     while True:
-        print("\nAgência de viagens")
+        print(Panel(("\nAgência de viagens"), expand=False))
         print("[bold][1.] :bust_in_silhouette: Cadastro de servidores[/]")
         print("[bold][2.] :airplane_departure: Cadastro de viagens[/]")
         print("[bold][3.] :wastebasket: Remover viagem[/]")
@@ -100,7 +100,6 @@ def cadastrar_servidor(dados):
             break
 
     nome = Prompt.ask("[bold] :bust_in_silhouette: Digite o nome: \n->[/bold]").strip()
-
     while not nome: #Se é vazio
         print("[bold yellow]:warning: Nome é obrigatório. Tente novamente[/]")
         nome = Prompt.ask("[bold] :bust_in_silhouette: Digite o nome: \n->[/bold]").strip()
@@ -191,7 +190,7 @@ def adicionar_viagem(dados):
 
     while True:
         try:
-            valor = float(Prompt.ask("[bold]💰 Valor das diárias:\n->[/]"))
+            valor = float(Prompt.ask("[bold]💰 Valor das diárias (apenas números):\n->[/]"))
             break
         except ValueError:
             print("[bold yellow]:warning: Digite um valor numérico válido.[/]")
@@ -305,7 +304,6 @@ def buscar_viagens_cpf():
     print(Panel((":bust_in_silhouette: Buscar Viagens por Servidos: "), expand=False))
     print()
     cpf = Prompt.ask("[bold]:page_facing_up: Digite o cpf(apenas números): [/]").strip()
-    texto = ""
 
     #Ordena as viagens por data
     ordenadas = sorted(
