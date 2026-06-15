@@ -6,8 +6,5 @@ class Viagem:
         self.fim = fim
         self.valor = valor
 
-    def __str__ (self):
-        return f'{self.cpf} : {self.destino} : {self.inicio} : {self.fim} : {self.valor}'
-
     def linha_armazenamento(self):
         return f'V : {self.cpf} : {self.destino} : {self.inicio} : {self.fim} : {self.valor}'
