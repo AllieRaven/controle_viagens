@@ -82,12 +82,12 @@ def menu():
     print("[bold][5.] :clipboard: Listar viagens[/]")
     print("[bold][6.] :door: Sair[/]\n")
 
-    op = input("Escolha uma opção: ")
+    op = Prompt.ask("[bold]Escolha uma opção: [/]")
 
     if op.isdigit() and 1 <= int(op) <= 6: 
         return op
     else:
-        print("Opção inválida. Você deve escolher uma opção entre 1 e 6.")
+        print("[bold yellow]:warning:Opção inválida. Você deve escolher uma opção entre 1 e 6.[/]")
         return menu()
 
 
@@ -200,33 +200,54 @@ def adicionar_viagem(dados):
 def remover_viagem():
     print(Panel((":bust_in_silhouette: Remoção de viagens"), expand=False))
     print()
-    if len(viagens) == 0:
-        return "[bold yellow] :warning: Nenhuma viagem cadastrada.[/]"
 
-    for i, viagem in enumerate(viagens, start=1):
-        print (
+    cpf = Prompt.ask(
+        "[bold] :page_facing_up: Digite o CPF (somente números): \n ->[/bold]"
+    ).strip()
+
+    if cpf not in dados:
+        return "[bold red]❌ Servidor não encontrado.[/]"
+
+    if len(viagens) == 0:
+        return "[bold yellow]:warning: Nenhuma viagem cadastrada.[/]"
+
+    viagens_cpf = []
+
+    for i, viagem in enumerate(viagens):
+        if viagem.cpf == cpf:
+            viagens_cpf.append(i)
+
+    if len(viagens_cpf) == 0:
+        return "[bold yellow]:warning: Este servidor não possui viagens cadastradas.[/]"
+
+    for i, indice in enumerate(viagens_cpf, start=1):
+        viagem = viagens[indice]
+
+        print(
             f"{i} - [bold]:round_pushpin: Destino: {viagem.destino} | [/]"
-            f"[bold]📅 Data de início:  {viagem.inicio} | [/]"
-            f"[bold]📅 Data de fim: {viagem.fim} [/]"
+            f"[bold]📅 Data de início: {viagem.inicio} | [/]"
+            f"[bold]📅 Data de fim: {viagem.fim}[/]"
         )
 
     while True:
         try:
-            indice = int(input("[bold]Informe o número da viagem: [/]")) - 1
+            escolha = int(
+                Prompt.ask("[bold]Informe o número da viagem: [/]")
+            ) - 1
 
-            if 0 <= indice < len(viagens):
-                historico_remocoes.append(viagens[indice])
-                viagens.pop(indice)
-                print("[bold green]:white_check_mark: Viagem removida com sucesso! [/]")
-                break
+            if 0 <= escolha < len(viagens_cpf):
+                indice_real = viagens_cpf[escolha]
+
+                historico_remocoes.append(viagens[indice_real])
+                viagens.pop(indice_real)
+
+                return "[bold green]:white_check_mark: Viagem removida com sucesso! :wastebasket:[/]"
 
             else:
                 print("[bold yellow]:warning: Número inválido.[/]")
 
         except ValueError:
-            print("[bold yellow] :warning: Valor inválido![/]")
-            continue
-
+            print("[bold yellow]:warning: Valor inválido![/]")
 
 def listar_viagens():
     print(Panel((":bust_in_silhouette: Listar viagens"), expand=False))
@@ -256,7 +277,7 @@ def listar_viagens():
 def buscar_viagens_cpf():
     print(Panel((":bust_in_silhouette: Buscar Viagens por Servidos: "), expand=False))
     print()
-    cpf = input("Digite o cpf(apenas números): ").strip()
+    cpf = Prompt.ask("[bold]:page_facing_up: Digite o cpf(apenas números): [/]").strip()
     texto = ""
 
     ordenadas = sorted(
@@ -276,7 +297,7 @@ def buscar_viagens_cpf():
     if texto:
         return texto
     
-    return "Nenhuma viagem encontrada para este CPF."
+    return "[bold red]:x: Nenhuma viagem encontrada para este CPF.[/]"
 
 
 def total_diarias(viagem):
